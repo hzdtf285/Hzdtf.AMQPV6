@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <Authors>黄振东</Authors>
+    <Company>Hzdtf</Company>
+    <Product>Rabbit Asp.Net类库</Product>
+    <Description>Rabbit Asp.Net类库，运行在Asp.Net 6以上</Description>
+    <Version>6.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Hzdtf.Rabbit.AspNet.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>Hzdtf.Rabbit.AspNet.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AMQP\Hzdtf.AMQP.AspNet\Hzdtf.AMQP.AspNet.csproj" />
+    <ProjectReference Include="..\Hzdtf.Rabbit.Impl\Hzdtf.Rabbit.Impl.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Hzdtf.Logger.Contract">
+      <HintPath>..\..\Library\Hzdtf.Logger.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Hzdtf.Mini">
+      <HintPath>..\..\Library\Hzdtf.Mini.dll</HintPath>
+    </Reference>
+    <Reference Include="Hzdtf.Utility">
+      <HintPath>..\..\Library\Hzdtf.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Hzdtf.Utility.AspNet">
+      <HintPath>..\..\Library\Hzdtf.Utility.AspNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

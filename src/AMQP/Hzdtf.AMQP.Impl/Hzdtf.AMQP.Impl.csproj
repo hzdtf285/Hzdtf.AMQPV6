@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Authors>黄振东</Authors>
+    <Company>Hzdtf</Company>
+    <Product>AMQP实现类库</Product>
+    <Description>AMQP实现类库，运行在.Net6以上</Description>
+    <Version>6.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Hzdtf.AMQP.Impl.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>Hzdtf.AMQP.Impl.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hzdtf.AMQP.Contract\Hzdtf.AMQP.Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Hzdtf.Logger.Contract">
+      <HintPath>..\..\Library\Hzdtf.Logger.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Hzdtf.Mini">
+      <HintPath>..\..\Library\Hzdtf.Mini.dll</HintPath>
+    </Reference>
+    <Reference Include="Hzdtf.Utility">
+      <HintPath>..\..\Library\Hzdtf.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Hzdtf.Rabbit.Consul.AspNet</name>
+    </assembly>
+    <members>
+        <member name="T:Hzdtf.Rabbit.Consul.AspNet.RabbitConsulConnectionOptions">
+            <summary>
+            Rabbit Consull连接选项配置
+            @ 黄振东
+            </summary>
+        </member>
+        <member name="P:Hzdtf.Rabbit.Consul.AspNet.RabbitConsulConnectionOptions.ConsulConfigFile">
+            <summary>
+            Consul配置文件
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.RabbitConsulExtensions">
+            <summary>
+            Rabbit Consul扩展类
+            @ 黄振东
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.RabbitConsulExtensions.AddRabbitConnectionFactoryConsulConfigCenter(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Hzdtf.Rabbit.Consul.AspNet.RabbitConsulConnectionOptions})">
+            <summary>
+            添加Rabbit连接工厂到Consul配置中心
+            </summary>
+            <param name="services">服务收藏</param>
+            <param name="options">配置回调</param>
+            <returns>AMQP连接工厂</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.RabbitConsulExtensions.AddRabbitConnectionAndOpenConsulConfigCenter(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Hzdtf.Rabbit.Consul.AspNet.RabbitConsulConnectionOptions})">
+            <summary>
+            添加Rabbit连接到Consul配置中心
+            </summary>
+            <param name="services">服务收藏</param>
+            <param name="hostId">主机ID</param>
+            <param name="options">配置回调</param>
+            <returns>AMQP连接</returns>
+        </member>
+    </members>
+</doc>

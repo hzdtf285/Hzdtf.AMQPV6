@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hzdtf.BusinessDemo.Contract\Hzdtf.BusinessDemo.Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Hzdtf.Mini">
+      <HintPath>..\..\..\Library\Hzdtf.Mini.dll</HintPath>
+    </Reference>
+    <Reference Include="Hzdtf.Utility">
+      <HintPath>..\..\..\Library\Hzdtf.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

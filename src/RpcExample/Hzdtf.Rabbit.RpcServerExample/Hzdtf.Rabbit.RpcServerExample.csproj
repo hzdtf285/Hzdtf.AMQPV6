@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MessagePack" Version="2.3.85" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Rabbit\Hzdtf.Rabbit.Impl\Hzdtf.Rabbit.Impl.csproj" />
+    <ProjectReference Include="..\BusinessDemo\Hzdtf.BusinessDemo.Impl\Hzdtf.BusinessDemo.Impl.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Hzdtf.Logger.Contract">
+      <HintPath>..\..\Library\Hzdtf.Logger.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Hzdtf.Mini">
+      <HintPath>..\..\Library\Hzdtf.Mini.dll</HintPath>
+    </Reference>
+    <Reference Include="Hzdtf.Utility">
+      <HintPath>..\..\Library\Hzdtf.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="amqp.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\interfaceAssemblyMapImplAssemblyConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
