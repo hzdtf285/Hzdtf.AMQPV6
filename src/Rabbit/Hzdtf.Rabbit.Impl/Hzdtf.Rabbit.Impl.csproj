@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.3.85" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.2.4" />
+    <PackageReference Include="MessagePack" Version="2.3.112" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
