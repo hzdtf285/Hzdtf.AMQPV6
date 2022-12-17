@@ -57,18 +57,14 @@ namespace Hzdtf.RabbitV2.RpcServerExample
             conn.OpenByHostId("host1");
             var rpcServer = conn.CreateRpcServer("RpcExchange", "RpcQueue");
 
-            // 创建Rpc监听服务
-            var listen = new RpcServerListen();
 
             // 设置接口映射配置文件
             var mapImplCache = new InterfaceMapImplCache();
             mapImplCache.Set(new DictionaryJson("Config/interfaceAssemblyMapImplAssemblyConfig.json"));
-            // 将映射赋值到监听中
-            listen.InterfaceMapImpl = mapImplCache;
+            // 创建Rpc监听服务
+            var listen = new RpcServerListen(new MessagePackBytesSerialization(), mapImplCache, rpcServer: rpcServer);
             var dd = mapImplCache.Reader("Hzdtf.BusinessDemo.Contract,Hzdtf.BusinessDemo.Contract.IPersonService");
             // 将RPC服务设置到监听中
-            listen.RpcServer = rpcServer;
-            listen.BytesSerialization = new MessagePackBytesSerialization();
 
             // 注册错误事件
             listen.ReceivingError += Listen_ReceivingError;

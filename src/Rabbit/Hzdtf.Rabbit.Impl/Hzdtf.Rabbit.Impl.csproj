@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.4.35" />
+    <PackageReference Include="MessagePack" Version="2.4.59" />
     <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
   </ItemGroup>
 
@@ -35,6 +35,9 @@
     </Reference>
     <Reference Include="Hzdtf.Utility">
       <HintPath>..\..\Library\Hzdtf.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagePack.Annotations">
+      <HintPath>..\..\..\..\Hzdtf.Consul.ExtensionsV6\src\Library\MessagePack.Annotations.dll</HintPath>
     </Reference>
   </ItemGroup>
 

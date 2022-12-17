@@ -72,7 +72,7 @@ namespace Hzdtf.AMQP.Impl
             {
                 ExId = snowflakeId.New(),
                 HostId = amqpQueue.HostId,
-                Time = DateTimeExtensions.Now,
+                Time = DateTimeExtensions.CstNow(),
                 ServiceName = string.IsNullOrWhiteSpace(amqpQueue.ExceptionHandle.ServiceName) ? App.AppServiceName : amqpQueue.ExceptionHandle.ServiceName,
                 ExceptionString = ex.ToString(),
                 ExceptionMessage = ex.Message,

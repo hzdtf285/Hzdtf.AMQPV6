@@ -21,7 +21,7 @@ namespace Hzdtf.Rabbit.AspNet
         {
             get;
             set;
-        } = SymmetricalEncryptionUtil.DefaultSymmetricalEncryption;
+        } = SymmetricalEncryptionUtil.GetSymmetricalEncryption();
 
         /// <summary>
         /// 配置
