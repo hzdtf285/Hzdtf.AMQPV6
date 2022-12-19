@@ -16,12 +16,12 @@ namespace Hzdtf.AMQP.Impl.Config
         /// <summary>
         /// 原生AMQP配置读取
         /// </summary>
-        private readonly IAmqpConfigReader protoAmqpConfigReader;
+        protected readonly IAmqpConfigReader protoAmqpConfigReader;
 
         /// <summary>
         /// AMQP配置信息
         /// </summary>
-        private static AmqpConfigInfo configInfo;
+        protected static AmqpConfigInfo configInfo;
 
         /// <summary>
         /// 同步配置信息

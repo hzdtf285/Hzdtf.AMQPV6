@@ -150,9 +150,15 @@
             名称
             </summary>
         </member>
+        <member name="F:Hzdtf.AMQP.Model.Config.QueueInfo.qos">
+            <summary>
+            服务质量数
+            </summary>
+        </member>
         <member name="P:Hzdtf.AMQP.Model.Config.QueueInfo.Qos">
             <summary>
             服务质量数
+            如果设置为null，则默认取当前CPU的逻辑核心数
             </summary>
         </member>
         <member name="P:Hzdtf.AMQP.Model.Config.QueueInfo.RoutingKeys">

@@ -10,6 +10,7 @@ using System.Text;
 using System.Linq;
 using Hzdtf.AMQP.Contract.Connection;
 using Hzdtf.Utility.Data;
+using System.Collections.Concurrent;
 
 namespace Hzdtf.Rabbit.Impl.Core
 {
@@ -77,8 +78,14 @@ namespace Hzdtf.Rabbit.Impl.Core
         private void InitExceptionHandle()
         {
             // 如果有定义异常处理
-            if (amqpQueue.ExceptionHandle == null || amqpQueue.ExceptionHandle.PublishConsumers.IsNullOrLength0())
+            if (amqpQueue.ExceptionHandle == null)
             {
+                Console.WriteLine("InitExceptionHandle:amqpQueue.ExceptionHandle为null");
+                return;
+            }
+            if (amqpQueue.ExceptionHandle.PublishConsumers.IsNullOrLength0())
+            {
+                Console.WriteLine("InitExceptionHandle:amqpQueue.ExceptionHandle.PublishConsumers.IsNullOrLength0()为空");
                 return;
             }
 
@@ -91,7 +98,7 @@ namespace Hzdtf.Rabbit.Impl.Core
                 exceptionHandleConnections[i].OpenByHostId(hostIds[i]);
             }
 
-            dicExceptionHandleProducers = new Dictionary<IProducer, string>(amqpQueue.ExceptionHandle.PublishConsumers.Length);
+            dicExceptionHandleProducers = new ConcurrentDictionary<IProducer, string>();
             foreach (var pc in amqpQueue.ExceptionHandle.PublishConsumers)
             {
                 var conn = exceptionHandleConnections.Where(p => p.HostId == pc.HostId).FirstOrDefault();
@@ -111,8 +118,14 @@ namespace Hzdtf.Rabbit.Impl.Core
         /// <returns>是否处理成功</returns>
         public bool Handle(BusinessExceptionInfo businessException)
         {
-            if (businessException == null || dicExceptionHandleProducers.IsNullOrCount0())
+            if (businessException == null)
             {
+                Console.WriteLine("Handle:businessException为null");
+                return false;
+            }
+            if (dicExceptionHandleProducers.IsNullOrCount0())
+            {
+                Console.WriteLine("Handle:dicExceptionHandleProducers.IsNullOrCount0()为空");
                 return false;
             }
 

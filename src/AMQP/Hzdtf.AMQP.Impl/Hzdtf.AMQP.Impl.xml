@@ -126,11 +126,6 @@
             AMQP配置读取
             </summary>
         </member>
-        <member name="F:Hzdtf.AMQP.Impl.Connection.AmqpConnectionBase.connectionStringParse">
-            <summary>
-            连接字符串解析
-            </summary>
-        </member>
         <member name="F:Hzdtf.AMQP.Impl.Connection.AmqpConnectionBase.symmetricalEncryption">
             <summary>
             加密
@@ -364,11 +359,6 @@
         <member name="F:Hzdtf.AMQP.Impl.Connection.AmqpRpcClientMethodBase.dicMapRpcClient">
             <summary>
             映射RPC客户端字典（key: RPC客户端标识, value：RPC客户端）
-            </summary>
-        </member>
-        <member name="F:Hzdtf.AMQP.Impl.Connection.AmqpRpcClientMethodBase.syncDicMapRpcClient">
-            <summary>
-            同步映射RPC客户端字典
             </summary>
         </member>
         <member name="F:Hzdtf.AMQP.Impl.Connection.AmqpRpcClientMethodBase.connections">

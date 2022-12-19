@@ -77,7 +77,7 @@ namespace Hzdtf.AMQP.Model.Config
                 ExchangeName = exchange.Name,
                 Persistent = exchange.Persistent,
                 Queue = queue,
-                Type = exchange.Type
+                Type = exchange.Type,
             };
             if (queue != null)
             {

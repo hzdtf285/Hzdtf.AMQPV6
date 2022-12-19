@@ -26,7 +26,7 @@ namespace Hzdtf.AMQP.Impl
         /// <summary>
         /// 雪法算法ID
         /// </summary>
-        private static readonly SnowflakeId snowflakeId = new SnowflakeId();
+        private static readonly IIdentity<long> snowflakeId = new SnowflakeId();
 
         /// <summary>
         /// 获取配置读取，如果传入为空，则取全局配置读取

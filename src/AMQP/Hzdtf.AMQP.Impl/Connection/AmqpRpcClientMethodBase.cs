@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using Hzdtf.Utility.Utils;
+using System.Collections.Concurrent;
 
 namespace Hzdtf.AMQP.Impl.Connection
 {
@@ -38,12 +39,7 @@ namespace Hzdtf.AMQP.Impl.Connection
         /// <summary>
         /// 映射RPC客户端字典（key: RPC客户端标识, value：RPC客户端）
         /// </summary>
-        private readonly static IDictionary<string, IRpcClient> dicMapRpcClient = new Dictionary<string, IRpcClient>();
-
-        /// <summary>
-        /// 同步映射RPC客户端字典
-        /// </summary>
-        private readonly static object syncDicMapRpcClient = new object();
+        private readonly static IDictionary<string, IRpcClient> dicMapRpcClient = new ConcurrentDictionary<string, IRpcClient>();
 
         /// <summary>
         /// 连接列表
@@ -240,15 +236,12 @@ namespace Hzdtf.AMQP.Impl.Connection
             }
 
             IRpcClient rpcClient = null;
-            lock (syncDicMapRpcClient)
+            rpcClient = conn.CreateRpcClient(rpcClientAssemblyQueue.ExchangeName, rpcClientAssemblyQueue.QueueName);
+            try
             {
-                rpcClient = conn.CreateRpcClient(rpcClientAssemblyQueue.ExchangeName, rpcClientAssemblyQueue.QueueName);
-                try
-                {
-                    dicMapRpcClient.Add(rpcClientId, rpcClient);
-                }
-                catch (ArgumentException) { }
+                dicMapRpcClient.Add(rpcClientId, rpcClient);
             }
+            catch (ArgumentException) { }
 
             return rpcClient;
         }

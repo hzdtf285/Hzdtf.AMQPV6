@@ -45,11 +45,6 @@ namespace Hzdtf.AMQP.Impl.Connection
         }
 
         /// <summary>
-        /// 连接字符串解析
-        /// </summary>
-        protected readonly IConnectionStringParse<AmqpConnectionInfo> connectionStringParse;
-
-        /// <summary>
         /// 加密
         /// </summary>
         protected readonly ISymmetricalEncryption symmetricalEncryption;

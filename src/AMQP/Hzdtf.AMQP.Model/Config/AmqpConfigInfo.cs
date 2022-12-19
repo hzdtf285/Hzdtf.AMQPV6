@@ -109,9 +109,30 @@ namespace Hzdtf.AMQP.Model.Config
         /// <summary>
         /// 服务质量数
         /// </summary>
+        private ushort? qos;
+
+        /// <summary>
+        /// 服务质量数
+        /// 如果设置为null，则默认取当前CPU的逻辑核心数
+        /// </summary>
         [JsonProperty("qos")]
         [Key("qos")]
-        public ushort? Qos { get; set; }
+        public ushort? Qos
+        {
+            get
+            {
+                if (qos == null)
+                {
+                    qos = (ushort)Environment.ProcessorCount;
+                }
+
+                return qos;
+            }
+            set
+            {
+                qos = value;
+            }
+        }
 
         /// <summary>
         /// 路由键集合
