@@ -167,6 +167,11 @@
             字节数组序列化
             </summary>
         </member>
+        <member name="E:Hzdtf.AMQP.Contract.Core.IProducer.PublishStatusCall">
+            <summary>
+            发布状态回复事件
+            </summary>
+        </member>
         <member name="M:Hzdtf.AMQP.Contract.Core.IProducer.Publish(System.String,System.String)">
             <summary>
             发布消息
@@ -186,6 +191,30 @@
             发布消息
             </summary>
             <param name="message">消息</param>
+            <param name="routingKey">路由键</param>
+        </member>
+        <member name="M:Hzdtf.AMQP.Contract.Core.IProducer.PublishDelay(System.String,System.UInt32,System.String)">
+            <summary>
+            发布消息，延迟消费
+            </summary>
+            <param name="message">消息</param>
+            <param name="ttl">过期毫秒数</param>
+            <param name="routingKey">路由键</param>
+        </member>
+        <member name="M:Hzdtf.AMQP.Contract.Core.IProducer.PublishDelay(System.Object,System.UInt32,System.String)">
+            <summary>
+            发布消息，延迟消费
+            </summary>
+            <param name="message">消息</param>
+            <param name="ttl">过期毫秒数</param>
+            <param name="routingKey">路由键</param>
+        </member>
+        <member name="M:Hzdtf.AMQP.Contract.Core.IProducer.PublishDelay(System.Byte[],System.UInt32,System.String)">
+            <summary>
+            发布消息，延迟消费
+            </summary>
+            <param name="message">消息</param>
+            <param name="ttl">过期毫秒数</param>
             <param name="routingKey">路由键</param>
         </member>
     </members>

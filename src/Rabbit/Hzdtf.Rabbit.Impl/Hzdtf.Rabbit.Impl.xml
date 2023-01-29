@@ -213,7 +213,7 @@
             JSON序列化
             </summary>
         </member>
-        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitConsumer.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,Hzdtf.Logger.Contract.ILogable,Hzdtf.AMQP.Contract.Core.IExceptionHandle)">
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitConsumer.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,Hzdtf.Logger.Contract.ILogable,Hzdtf.Utility.Factory.IGeneralFactory{RabbitMQ.Client.IModel},Hzdtf.AMQP.Contract.Core.IExceptionHandle)">
             <summary>
             构造方法
             初始化各个对象以便就绪
@@ -222,6 +222,7 @@
             <param name="channel">渠道</param>
             <param name="amqpQueue">AMQP队列信息</param>
             <param name="log">日志</param>
+            <param name="modelFactory">模型工厂</param>
             <param name="exceptionHandle">异常处理</param>
         </member>
         <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitConsumer.Subscribe(System.Func{System.String,System.Boolean},System.Boolean)">
@@ -296,7 +297,12 @@
             关闭后事件
             </summary>
         </member>
-        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitCoreBase.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,System.Boolean,Hzdtf.Logger.Contract.ILogable)">
+        <member name="F:Hzdtf.Rabbit.Impl.Core.RabbitCoreBase.modelFactory">
+            <summary>
+            模型工厂
+            </summary>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitCoreBase.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,System.Boolean,Hzdtf.Logger.Contract.ILogable,Hzdtf.Utility.Factory.IGeneralFactory{RabbitMQ.Client.IModel})">
             <summary>
             构造方法
             初始化各个对象以便就绪
@@ -306,6 +312,7 @@
             <param name="amqpQueue">AMQP队列信息</param>
             <param name="isDeclare">是否定义</param>
             <param name="log">日志</param>
+            <param name="modelFactory">模型工厂</param>
         </member>
         <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitCoreBase.Close">
             <summary>
@@ -322,6 +329,12 @@
             执行关闭事件
             </summary>
             <param name="data">数据</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitCoreBase.CreateDefaultBasicProperties">
+            <summary>
+            创建默认的基本属性
+            </summary>
+            <returns>基本属性</returns>
         </member>
         <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitCoreBase.Dispose">
             <summary>
@@ -422,7 +435,29 @@
             字节数组序列化，默认为JSON序列化
             </summary>
         </member>
-        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,Hzdtf.Logger.Contract.ILogable)">
+        <member name="F:Hzdtf.Rabbit.Impl.Core.RabbitProducer.dealyQueues">
+            <summary>
+            发布延迟消费队列列表
+            </summary>
+        </member>
+        <member name="E:Hzdtf.Rabbit.Impl.Core.RabbitProducer.PublishStatusCall">
+            <summary>
+            发布状态回复事件
+            </summary>
+        </member>
+        <member name="F:Hzdtf.Rabbit.Impl.Core.RabbitProducer.isSetConfirmed">
+            <summary>
+            是否已设置确认
+            </summary>
+        </member>
+        <member name="F:Hzdtf.Rabbit.Impl.Core.RabbitProducer.dicMsgSeqNoMapPublishStauts">
+            <summary>
+            消息序列号映射发布状态字典
+            key：消息序列号
+            value：发布状态
+            </summary>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,Hzdtf.Logger.Contract.ILogable,Hzdtf.Utility.Factory.IGeneralFactory{RabbitMQ.Client.IModel})">
             <summary>
             构造方法
             初始化各个对象以便就绪
@@ -431,6 +466,7 @@
             <param name="channel">渠道</param>
             <param name="amqpQueue">AMQP队列信息</param>
             <param name="log">日志</param>
+            <param name="modelFactory">模型工厂</param>
         </member>
         <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.Publish(System.String,System.String)">
             <summary>
@@ -453,6 +489,85 @@
             <param name="message">消息</param>
             <param name="routingKey">路由键</param>
         </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.PublishDelay(System.String,System.UInt32,System.String)">
+            <summary>
+            发布消息，延迟消费
+            </summary>
+            <param name="message">消息</param>
+            <param name="ttl">过期毫秒数</param>
+            <param name="routingKey">路由键</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.PublishDelay(System.Object,System.UInt32,System.String)">
+            <summary>
+            发布消息，延迟消费
+            </summary>
+            <param name="message">消息</param>
+            <param name="ttl">过期毫秒数</param>
+            <param name="routingKey">路由键</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.PublishDelay(System.Byte[],System.UInt32,System.String)">
+            <summary>
+            发布消息，延迟消费
+            </summary>
+            <param name="message">消息</param>
+            <param name="ttl">过期毫秒数</param>
+            <param name="routingKey">路由键</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.Publish(System.Byte[],System.Object,System.String)">
+            <summary>
+            发布消息
+            </summary>
+            <param name="message">消息</param>
+            <param name="origMessage">原始消息</param>
+            <param name="routingKey">路由键</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.PublishDelay(System.Byte[],System.Object,System.UInt32,System.String)">
+            <summary>
+            发布消息，延迟消费
+            </summary>
+            <param name="message">消息</param>
+            <param name="origMessage">原始消息</param>
+            <param name="ttl">过期毫秒数</param>
+            <param name="routingKey">路由键</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.OnPublishStatusCall(Hzdtf.AMQP.Model.Core.PublishStatusEventArgs)">
+            <summary>
+            执行发布状态回调
+            </summary>
+            <param name="e">发布状态事件参数</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.SetChannelConfirm">
+            <summary>
+            设置渠道确认
+            </summary>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.Channel_BasicAcks(System.Object,RabbitMQ.Client.Events.BasicAckEventArgs)">
+            <summary>
+            渠道ack
+            </summary>
+            <param name="sender">引发对象</param>
+            <param name="e">基本ack事件参数</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.Channel_BasicNacks(System.Object,RabbitMQ.Client.Events.BasicNackEventArgs)">
+            <summary>
+            渠道nack
+            </summary>
+            <param name="sender">引发对象</param>
+            <param name="e">基本nack事件参数</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.ExecPublishStatus(System.UInt64,System.Boolean)">
+            <summary>
+            执行发布状态
+            </summary>
+            <param name="deliveryTag">序列</param>
+            <param name="success">是否成功</param>
+        </member>
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitProducer.SetMsgSeqMapPublishStatus(System.Func{Hzdtf.AMQP.Model.Core.PublishStatusEventArgs})">
+            <summary>
+            设置消息映射发布状态
+            </summary>
+            <param name="callbackPublishStatusEvent">回调消息映射发布状态</param>
+        </member>
         <member name="T:Hzdtf.Rabbit.Impl.Core.RabbitRpcClient">
             <summary>
             Rabbit RPC客户端
@@ -474,7 +589,7 @@
             回调映射
             </summary>
         </member>
-        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitRpcClient.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,Hzdtf.Logger.Contract.ILogable)">
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitRpcClient.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,Hzdtf.Logger.Contract.ILogable,Hzdtf.Utility.Factory.IGeneralFactory{RabbitMQ.Client.IModel})">
             <summary>
             构造方法
             初始化各个对象以便就绪
@@ -483,6 +598,7 @@
             <param name="channel">渠道</param>
             <param name="amqpQueue">AMQP队列信息</param>
             <param name="log">日志</param>
+            <param name="modelFactory">模型工厂</param>
         </member>
         <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitRpcClient.Init">
             <summary>
@@ -531,7 +647,7 @@
             异常处理
             </summary>
         </member>
-        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitRpcServer.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,Hzdtf.Logger.Contract.ILogable,Hzdtf.AMQP.Contract.Core.IExceptionHandle)">
+        <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitRpcServer.#ctor(RabbitMQ.Client.IModel,Hzdtf.AMQP.Model.Config.AmqpQueueInfo,Hzdtf.Logger.Contract.ILogable,Hzdtf.Utility.Factory.IGeneralFactory{RabbitMQ.Client.IModel},Hzdtf.AMQP.Contract.Core.IExceptionHandle)">
             <summary>
             构造方法
             初始化各个对象以便就绪
@@ -540,6 +656,7 @@
             <param name="channel">渠道</param>
             <param name="amqpQueue">AMQP队列信息</param>
             <param name="log">日志</param>
+            <param name="modelFactory">模型工厂</param>
             <param name="exceptionHandle">异常处理</param>
         </member>
         <member name="M:Hzdtf.Rabbit.Impl.Core.RabbitRpcServer.Receive(System.Func{System.Byte[],System.Byte[]})">

@@ -481,5 +481,31 @@
             虚拟路径
             </summary>
         </member>
+        <member name="T:Hzdtf.AMQP.Model.Core.PublishStatusEventArgs">
+            <summary>
+            发布状态事件参数
+            @ 黄振东
+            </summary>
+        </member>
+        <member name="P:Hzdtf.AMQP.Model.Core.PublishStatusEventArgs.MessageSeqNo">
+            <summary>
+            消息序列号
+            </summary>
+        </member>
+        <member name="P:Hzdtf.AMQP.Model.Core.PublishStatusEventArgs.Message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Hzdtf.AMQP.Model.Core.PublishStatusEventArgs.RoutingKey">
+            <summary>
+            路由键
+            </summary>
+        </member>
+        <member name="P:Hzdtf.AMQP.Model.Core.PublishStatusEventArgs.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
     </members>
 </doc>

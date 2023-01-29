@@ -1,6 +1,7 @@
 ﻿using Hzdtf.AMQP.Model.Config;
 using Hzdtf.Logger.Contract;
 using Hzdtf.Utility.Data;
+using Hzdtf.Utility.Factory;
 using Hzdtf.Utility.Release;
 using Hzdtf.Utility.Utils;
 using RabbitMQ.Client;
@@ -43,6 +44,11 @@ namespace Hzdtf.Rabbit.Impl.Core
         /// </summary>
         public event DataHandler Closed;
 
+        /// <summary>
+        /// 模型工厂
+        /// </summary>
+        protected readonly IGeneralFactory<IModel> modelFactory;
+
         #endregion
 
         #region 构造方法
@@ -56,13 +62,19 @@ namespace Hzdtf.Rabbit.Impl.Core
         /// <param name="amqpQueue">AMQP队列信息</param>
         /// <param name="isDeclare">是否定义</param>
         /// <param name="log">日志</param>
-        public RabbitCoreBase(IModel channel, AmqpQueueInfo amqpQueue, bool isDeclare, ILogable log = null)
+        /// <param name="modelFactory">模型工厂</param>
+        public RabbitCoreBase(IModel channel, AmqpQueueInfo amqpQueue, bool isDeclare, ILogable log = null, IGeneralFactory<IModel> modelFactory = null)
         {
             ValidateUtil.ValidateNull(channel, "渠道");
             ValidateUtil.ValidateNull(amqpQueue, "AMQP队列信息");
 
             this.channel = channel;
             this.amqpQueue = amqpQueue;
+            this.modelFactory = modelFactory;
+            if (channel == null && modelFactory != null)
+            {
+                this.channel = modelFactory.Create();
+            }
 
             if (log == null)
             {
@@ -75,15 +87,14 @@ namespace Hzdtf.Rabbit.Impl.Core
 
             if (isDeclare)
             {
-                channel.ExchangeDeclare(amqpQueue.ExchangeName, amqpQueue.Type, amqpQueue.Persistent);
+                this.channel.ExchangeDeclare(amqpQueue.ExchangeName, amqpQueue.Type, amqpQueue.Persistent);
                 if (amqpQueue.Queue.Qos != null)
                 {
-                    channel.BasicQos(0, amqpQueue.Queue.Qos.GetValueOrDefault(), false);
+                    this.channel.BasicQos(0, amqpQueue.Queue.Qos.GetValueOrDefault(), false);
                 }
             }
 
-            basicProperties = channel.CreateBasicProperties();
-            basicProperties.Persistent = amqpQueue.Persistent;
+            basicProperties = CreateDefaultBasicProperties();
 
             Init();
         }
@@ -131,6 +142,18 @@ namespace Hzdtf.Rabbit.Impl.Core
             {
                 Closed(this, new DataEventArgs(data));
             }
+        }
+
+        /// <summary>
+        /// 创建默认的基本属性
+        /// </summary>
+        /// <returns>基本属性</returns>
+        protected IBasicProperties CreateDefaultBasicProperties()
+        {
+            var baProp = channel.CreateBasicProperties();
+            baProp.Persistent = amqpQueue.Persistent;
+
+            return baProp;
         }
 
         #endregion

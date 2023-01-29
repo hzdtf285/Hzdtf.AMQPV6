@@ -11,6 +11,7 @@ using System.Linq;
 using Hzdtf.Logger.Contract;
 using Hzdtf.AMQP.Impl;
 using MessagePack;
+using Hzdtf.Utility.Factory;
 
 namespace Hzdtf.Rabbit.Impl.Core
 {
@@ -77,9 +78,10 @@ namespace Hzdtf.Rabbit.Impl.Core
         /// <param name="channel">渠道</param>
         /// <param name="amqpQueue">AMQP队列信息</param>
         /// <param name="log">日志</param>
+        /// <param name="modelFactory">模型工厂</param>
         /// <param name="exceptionHandle">异常处理</param>
-        public RabbitConsumer(IModel channel, AmqpQueueInfo amqpQueue, ILogable log = null, IExceptionHandle exceptionHandle = null)
-            : base(channel, amqpQueue, true, log)
+        public RabbitConsumer(IModel channel, AmqpQueueInfo amqpQueue, ILogable log = null, IGeneralFactory<IModel> modelFactory = null, IExceptionHandle exceptionHandle = null)
+            : base(channel, amqpQueue, true, log, modelFactory)
         {
             this.exceptionHandle = exceptionHandle;
         }

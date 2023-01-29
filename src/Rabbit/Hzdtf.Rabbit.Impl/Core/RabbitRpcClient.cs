@@ -11,6 +11,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.Threading;
 using Hzdtf.Logger.Contract;
+using Hzdtf.Utility.Factory;
 
 namespace Hzdtf.Rabbit.Impl.Core
 {
@@ -49,8 +50,9 @@ namespace Hzdtf.Rabbit.Impl.Core
         /// <param name="channel">渠道</param>
         /// <param name="amqpQueue">AMQP队列信息</param>
         /// <param name="log">日志</param>
-        public RabbitRpcClient(IModel channel, AmqpQueueInfo amqpQueue, ILogable log = null)
-            : base(channel, amqpQueue, false, log)
+        /// <param name="modelFactory">模型工厂</param>
+        public RabbitRpcClient(IModel channel, AmqpQueueInfo amqpQueue, ILogable log = null, IGeneralFactory<IModel> modelFactory = null)
+            : base(channel, amqpQueue, false, log, modelFactory)
         {
         }
 
